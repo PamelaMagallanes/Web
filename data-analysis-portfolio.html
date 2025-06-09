@@ -1,0 +1,750 @@
+`data-analysis-portfolio.html`
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio Personal - Análisis de Datos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --clr-bg: #ffffff;
+      --clr-primary: #111827;
+      --clr-secondary: #6b7280;
+      --clr-accent-start: #2563eb;
+      --clr-accent-end: #9333ea;
+      --clr-accent-hover-start: #1e40af;
+      --clr-accent-hover-end: #7e22ce;
+      --clr-gray-light: #f9fafb;
+      --clr-shadow-light: rgba(0,0,0,0.08);
+      --clr-shadow-accent: rgba(146, 52, 235, 0.3);
+      --font-primary: 'Poppins', sans-serif;
+      --radius: 0.75rem;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --max-width: 1200px;
+      --spacing-section: 4.5rem;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: var(--clr-bg);
+      font-family: var(--font-primary);
+      color: var(--clr-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 17px;
+    }
+    a {
+      color: var(--clr-accent-start);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--clr-accent-hover-start);
+      outline: none;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      color: var(--clr-primary);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 3.75rem;
+      font-weight: 800;
+    }
+    h2 {
+      font-size: 2.5rem;
+      border-bottom: 4px solid transparent;
+      border-image: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      border-image-slice: 1;
+      padding-bottom: 0.35rem;
+      margin-bottom: 2.5rem;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: var(--clr-primary);
+    }
+    p {
+      color: var(--clr-secondary);
+      max-width: 720px;
+      font-weight: 500;
+      font-size: 1.125rem;
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--clr-gray-light);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--clr-accent-start);
+      border-radius: 10px;
+      transition: background-color 0.2s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--clr-accent-end);
+    }
+
+    /* Header & Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--clr-bg);
+      box-shadow: 0 2px 7px var(--clr-shadow-light);
+      z-index: 1000;
+    }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4.25rem;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.6rem;
+      background: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+      letter-spacing: 0.03em;
+      cursor: default;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius);
+      transition: background-color var(--transition), color var(--transition);
+      color: var(--clr-primary);
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      background: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      color: white;
+      outline-offset: 2px;
+      outline: 3px solid rgba(146, 52, 235, 0.6);
+      box-shadow: 0 5px 12px var(--clr-shadow-accent);
+      transform: scale(1.05);
+    }
+
+    /* Main layout */
+    main {
+      padding-bottom: var(--spacing-section);
+    }
+    section {
+      padding-top: var(--spacing-section);
+      padding-bottom: var(--spacing-section);
+      scroll-margin-top: 5rem;
+    }
+
+    /* Hero Section */
+    #hero {
+      text-align: center;
+      padding: 9rem 2rem 8rem;
+      background: linear-gradient(135deg, #a78bfa 0%, #fca5a5 100%);
+      border-radius: var(--radius);
+      margin: 0 1rem;
+      box-shadow: 0 14px 30px rgba(146, 52, 235, 0.4);
+      position: relative;
+      overflow: hidden;
+      color: white;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      width: 180%;
+      height: 180%;
+      top: -40%;
+      left: -40%;
+      background: radial-gradient(circle at center, rgba(255 255 255 / 0.15), transparent 70%);
+      transform: rotate(35deg);
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #hero h1 {
+      font-size: 4.25rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.03em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    #hero p {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .cta {
+      background: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 1rem 2.5rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(146, 52, 235, 0.65);
+      user-select: none;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+      text-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+    }
+    .cta:hover,
+    .cta:focus {
+      background: linear-gradient(90deg, var(--clr-accent-hover-start), var(--clr-accent-hover-end));
+      outline: none;
+      box-shadow: 0 12px 36px rgba(146, 52, 235, 0.85);
+      transform: scale(1.07);
+    }
+
+    /* About Section */
+    #about {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    /* Skills Section */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+      gap: 1.75rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .skill-card {
+      background: white;
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(146, 52, 235, 0.15);
+      text-align: center;
+      font-weight: 600;
+      color: var(--clr-primary);
+      font-size: 1.1rem;
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+      cursor: default;
+      user-select: none;
+    }
+    .skill-card:hover,
+    .skill-card:focus {
+      box-shadow: 0 10px 30px rgba(146, 52, 235, 0.4);
+      outline: none;
+      transform: translateY(-6px);
+    }
+
+    /* Education & Experience Timeline Section */
+    #education-experience {
+      background: white;
+      padding: 4rem 2rem;
+      border-radius: var(--radius);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      box-shadow: 0 10px 36px rgba(146, 52, 235, 0.1);
+    }
+    #education-experience h2 {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      font-size: 2.75rem;
+      background: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.03em;
+      user-select: none;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .timeline-item {
+      background: var(--clr-gray-light);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 18px rgba(146, 52, 235, 0.15);
+      position: relative;
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+      border-left: 6px solid transparent;
+      cursor: default;
+    }
+    .timeline-item:hover,
+    .timeline-item:focus-within {
+      box-shadow: 0 20px 60px rgba(146, 52, 235, 0.35);
+      outline-offset: 4px;
+      outline: 3px solid rgba(146, 52, 235, 0.5);
+      transform: translateX(6px);
+    }
+    .timeline-item h3 {
+      margin: 0 0 0.4rem 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--clr-primary);
+      user-select: text;
+    }
+    .timeline-item p {
+      margin: 0.4rem 0;
+      color: var(--clr-primary);
+      font-weight: 600;
+      font-size: 1rem;
+      user-select: text;
+    }
+    .timeline-item p:last-of-type {
+      font-weight: 500;
+      color: var(--clr-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.15rem;
+    }
+    .timeline-item ul {
+      margin: 0 0 0 1.5rem;
+      padding: 0;
+      list-style-type: disc;
+      color: var(--clr-secondary);
+      font-weight: 500;
+      font-size: 1rem;
+      user-select: text;
+    }
+    .timeline-item ul li {
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    /* Projects Section */
+    #projects .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 2.75rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .project-card {
+      background: var(--clr-gray-light);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: 0 8px 18px rgba(146, 52, 235, 0.15);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      color: var(--clr-primary);
+      text-decoration: none;
+      user-select: none;
+    }
+    .project-card:hover,
+    .project-card:focus {
+      box-shadow: 0 16px 42px rgba(146, 52, 235, 0.4);
+      transform: translateY(-8px);
+      outline-offset: 4px;
+      outline: 3px solid rgba(146, 52, 235, 0.5);
+    }
+    .project-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    .project-description {
+      flex-grow: 1;
+      font-weight: 500;
+      color: var(--clr-secondary);
+      font-size: 1.05rem;
+    }
+    .project-links {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      user-select: text;
+    }
+    .project-links span {
+      font-weight: 600;
+      color: var(--clr-accent-start);
+      user-select: text;
+    }
+
+    /* Contact Section */
+    #contact {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      user-select: none;
+    }
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      margin-top: 1.2rem;
+      user-select: text;
+    }
+    #contact label {
+      font-weight: 600;
+      text-align: left;
+      color: var(--clr-primary);
+      font-size: 1.1rem;
+      user-select: text;
+    }
+    #contact input,
+    #contact textarea {
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius);
+      border: 1.75px solid #d1d5db;
+      font-size: 1.1rem;
+      resize: vertical;
+      font-family: var(--font-primary);
+      transition: border-color 0.3s ease;
+      user-select: text;
+    }
+    #contact input:focus,
+    #contact textarea:focus {
+      outline: none;
+      border-color: var(--clr-accent-start);
+      box-shadow: 0 0 6px var(--clr-accent-start);
+    }
+    #contact button {
+      background: linear-gradient(90deg, var(--clr-accent-start), var(--clr-accent-end));
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 0.85rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 30px rgba(146, 52, 235, 0.6);
+    }
+    #contact button:hover,
+    #contact button:focus {
+      background: linear-gradient(90deg, var(--clr-accent-hover-start), var(--clr-accent-hover-end));
+      outline: none;
+      transform: scale(1.1);
+      box-shadow: 0 16px 42px rgba(146, 52, 235, 0.9);
+    }
+    #form-message {
+      margin-top: 0.85rem;
+      color: var(--clr-accent-start);
+      font-weight: 600;
+      min-height: 1.4em;
+      user-select: text;
+      font-size: 1.05rem;
+    }
+
+    /* Contact Info Section with Icons */
+    #contact-info {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 3.5rem;
+      user-select: none;
+    }
+    #contact-info a {
+      color: var(--clr-accent-start);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      transition: color var(--transition), transform 0.3s ease;
+      text-decoration: none;
+      user-select: text;
+    }
+    #contact-info a:hover,
+    #contact-info a:focus {
+      color: var(--clr-accent-hover-start);
+      outline: none;
+      transform: scale(1.07);
+      filter: drop-shadow(0 0 4px rgba(146, 52, 235, 0.7));
+    }
+    #contact-info svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke var(--transition);
+      user-select: none;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.1));
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.8rem 1.2rem;
+      color: var(--clr-secondary);
+      font-size: 0.95rem;
+      border-top: 1.5px solid #e5e7eb;
+      margin-top: 4.5rem;
+      user-select: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 850px) {
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        font-size: 2.2rem;
+      }
+      h3 {
+        font-size: 1.4rem;
+      }
+      #projects .projects-grid {
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      }
+      #skills .skills-grid {
+        grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+      }
+      #education-experience {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .timeline {
+        gap: 1.8rem;
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+      #contact-info {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      #contact-info a {
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav role="navigation" aria-label="Main navigation">
+        <div class="logo" tabindex="0">MiPortafolio</div>
+        <div class="nav-links">
+          <a href="#about">Acerca</a>
+          <a href="#skills">Habilidades</a>
+          <a href="#education-experience">Educación & Experiencia</a>
+          <a href="#projects">Proyectos</a>
+          <a href="#contact">Contacto</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section id="hero" role="banner" aria-label="Introducción">
+      <h1>Hola, soy Analista de Datos</h1>
+      <p>Transformo datos en información valiosa y decisiones inteligentes.</p>
+      <a class="cta" href="#projects">Ver mis proyectos</a>
+    </section>
+    <section id="about" tabindex="0">
+      <div class="container">
+        <h2>Acerca de mí</h2>
+        <p>Soy un apasionado analista de datos con experiencia en la extracción, limpieza y visualización de datos para ayudar a empresas a tomar decisiones fundamentadas. Utilizo herramientas modernas para explorar y comunicar historias relevantes a partir de datos complejos.</p>
+      </div>
+    </section>
+    <section id="skills" tabindex="0">
+      <div class="container">
+        <h2>Habilidades</h2>
+        <div class="skills-grid" role="list" aria-label="Habilidades y herramientas">
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Python">Python</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Pandas">Pandas</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="NumPy">NumPy</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Matplotlib">Matplotlib</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Seaborn">Seaborn</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="SQL">SQL</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Power BI">Power BI</div>
+          <div class="skill-card" role="listitem" tabindex="0" aria-label="Excel">Excel</div>
+        </div>
+      </div>
+    </section>
+    <section id="education-experience" tabindex="0" aria-label="Educación y experiencia profesional">
+      <div class="container">
+        <h2>Educación y Experiencia Profesional</h2>
+        <div class="timeline">
+          <article class="timeline-item" tabindex="0" aria-label="Bachiller en Ingeniería Industrial, Universidad Nacional del Callao, Marzo 2017 a Diciembre 2021">
+            <h3>Bachiller en Ingeniería Industrial</h3>
+            <p>Universidad Nacional del Callao</p>
+            <p>Marzo 2017 - Diciembre 2021</p>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Diplomado en Inteligencia y Análisis de Datos, WE Educación Ejecutiva, Febrero 2023 a Junio 2023">
+            <h3>Diplomado en Inteligencia y Análisis de Datos</h3>
+            <p>WE Educación Ejecutiva</p>
+            <p>Febrero 2023 - Junio 2023</p>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Diplomado en Gerencia de Operaciones y Logística, Universidad Nacional Agraria La Molina, Julio 2021 a Noviembre 2021">
+            <h3>Diplomado en Gerencia de Operaciones y Logística</h3>
+            <p>Universidad Nacional Agraria La Molina</p>
+            <p>Julio 2021 - Noviembre 2021</p>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Analista Administrativo Financiero en GLOBAL HITSS, Noviembre 2023 a Actualidad">
+            <h3>Analista Administrativo Financiero</h3>
+            <p>GLOBAL HITSS</p>
+            <p>Noviembre 2023 - Actualidad</p>
+            <ul>
+              <li>Analizar y validar la data generada para la elaboración de reportes finales utilizando herramientas estadísticas y KPI’s.</li>
+              <li>Centralizar y revisar los reportes finales a entes regulatorios como OSIPTEL, MTC, INEI.</li>
+              <li>Apoyo en la atención de requerimientos no recurrentes solicitados por el regulador.</li>
+              <li>Interpretar datos financieros para reconocer tendencias y patrones.</li>
+            </ul>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Asistente Control Interno en SGS, Abril 2022 a Noviembre 2023">
+            <h3>Asistente Control Interno</h3>
+            <p>SGS</p>
+            <p>Abril 2022 - Noviembre 2023</p>
+            <ul>
+              <li>Diseñar dashboards en Power BI para la toma de decisiones estratégicas.</li>
+              <li>Analizar flujos de procesos, mejorando la eficiencia del equipo.</li>
+              <li>Realizar presentaciones ejecutivas sobre variaciones en gastos operativos.</li>
+            </ul>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Practicante Profesional Logística en DP World Logistics, Octubre 2021 a Abril 2022">
+            <h3>Practicante Profesional Logística</h3>
+            <p>DP World Logistics</p>
+            <p>Octubre 2021 - Abril 2022</p>
+            <ul>
+              <li>Gestionar requerimientos generando órdenes de compra.</li>
+              <li>Apoyar en la supervisión de contratistas y en la documentación de sistemas de gestión de seguridad.</li>
+            </ul>
+          </article>
+          <article class="timeline-item" tabindex="0" aria-label="Practicante Pre Profesional de Procesos en TVOLUTION S.A.C., Junio 2021 a Octubre 2021">
+            <h3>Practicante Pre Profesional de Procesos</h3>
+            <p>TVOLUTION S.A.C.</p>
+            <p>Junio 2021 - Octubre 2021</p>
+            <ul>
+              <li>Actualizar políticas y procedimientos de las áreas funcionales.</li>
+              <li>Proponer mejoras a los procesos para la eficiencia operativa.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="projects" tabindex="0">
+      <div class="container">
+        <h2>Proyectos</h2>
+        <div class="projects-grid">
+          <a class="project-card" href="https://github.com/tuusuario/proyecto1" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Proyecto 1: Análisis de ventas">
+            <div class="project-title">Análisis de ventas</div>
+            <div class="project-description">Exploración y visualización de datos de ventas para identificar tendencias y patrones de compra.</div>
+            <div class="project-links"><span>GitHub</span></div>
+          </a>
+          <a class="project-card" href="https://github.com/tuusuario/proyecto2" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Proyecto 2: Predicción de demanda">
+            <div class="project-title">Predicción de demanda</div>
+            <div class="project-description">Modelo predictivo basado en series de tiempo para anticipar la demanda de productos.</div>
+            <div class="project-links"><span>GitHub</span></div>
+          </a>
+          <a class="project-card" href="https://github.com/tuusuario/proyecto3" target="_blank" rel="noopener noreferrer" tabindex="0" aria-label="Proyecto 3: Dashboard interactivo">
+            <div class="project-title">Dashboard interactivo</div>
+            <div class="project-description">Desarrollo de un dashboard interactivo con Power BI para visualizar KPIs clave del negocio.</div>
+            <div class="project-links"><span>GitHub</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section id="contact" tabindex="0">
+      <div class="container">
+        <h2>Contacto</h2>
+        <p>¿Quieres contactarme? Puedes enviarme un mensaje o escribirme a mi correo electrónico.</p>
+        <form id="contact-form" aria-label="Formulario de contacto">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre" required autocomplete="name"/>
+
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email"/>
+
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+
+          <button type="submit">Enviar</button>
+          <p id="form-message" aria-live="polite"></p>
+        </form>
+
+        <div id="contact-info" aria-label="Información de contacto">
+          <a href="mailto:pamela.camasca@gmail.com" target="_blank" rel="noopener" aria-label="Enviar correo a pamela.camasca@gmail.com">
+            <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" >
+              <path d="M4 4h16v16H4z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            pamela.camasca@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/pamela-magallanes-camasca-0b1742197/" target="_blank" rel="noopener" aria-label="Abrir perfil de LinkedIn">
+            <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">&copy; 2024 Mi Portafolio - Análisis de Datos</div>
+  </footer>
+
+  <script>
+    // Contact form submission simulation
+    document.getElementById('contact-form').addEventListener('submit', function(event){
+      event.preventDefault();
+      const formMessageEl = document.getElementById('form-message');
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const message = this.message.value.trim();
+
+      if(name && email && message){
+        formMessageEl.textContent = "Gracias por tu mensaje, " + name + "! Te contactaré pronto.";
+        this.reset();
+      } else {
+        formMessageEl.textContent = "Por favor completa todos los campos correctamente.";
+      }
+    });
+  </script>
+</body>
+</html>
+
+```
